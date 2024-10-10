@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calificaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Calificaciones de <span id="student-name"></span></h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Calificación</th>
+            </tr>
+        </thead>
+        <tbody id="grades-table">
+            <!-- Las calificaciones se generarán dinámicamente aquí -->
+        </tbody>
+    </table>
+
+    <script>
+        // Simulamos un conjunto de calificaciones
+        const studentGrades = {
+            'alumno1': [
+                { subject: 'Matemáticas', grade: 85 },
+                { subject: 'Física', grade: 78 },
+                { subject: 'Química', grade: 92 }
+            ],
+            'alumno2': [
+                { subject: 'Matemáticas', grade: 90 },
+                { subject: 'Física', grade: 82 },
+                { subject: 'Química', grade: 88 }
+            ]
+        };
+
+        // Obtenemos el nombre de usuario desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('user');
+
+        // Mostrar nombre del estudiante
+        document.getElementById("student-name").textContent = username;
+
+        // Mostrar las calificaciones del estudiante
+        const gradesTable = document.getElementById("grades-table");
+        const grades = studentGrades[username];
+
+        if (grades) {
+            grades.forEach(grade => {
+                const row = `<tr>
+                    <td>${grade.subject}</td>
+                    <td>${grade.grade}</td>
+                </tr>`;
+                gradesTable.innerHTML += row;
+            });
+        } else {
+            gradesTable.innerHTML = '<tr><td colspan="2">No se encontraron calificaciones.</td></tr>';
+        }
+    </script>
+
+</body>
+</html>
